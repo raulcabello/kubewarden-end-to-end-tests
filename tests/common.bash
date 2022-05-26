@@ -117,3 +117,12 @@ function install_kubewarden_stack {
 	run helm install --kube-context $CLUSTER_CONTEXT --wait -n kubewarden kubewarden-controller kubewarden/kubewarden-controller
 	run helm install --kube-context $CLUSTER_CONTEXT --wait -n kubewarden kubewarden-defaults kubewarden/kubewarden-defaults
 } 
+
+function wait_for_terminating_pods {
+     while [ true ]; do
+                if ! kubectl get pods -n kubewarden | grep -q "Terminating"; then
+                        break
+                fi
+                sleep 1
+    done
+}

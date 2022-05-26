@@ -22,6 +22,7 @@ setup_file() {
 
 @test "[Monitor mode end-to-end tests] Transition policy mode from monitor to protect should succeed" {
 	apply_cluster_admission_policy $RESOURCES_DIR/privileged-pod-policy.yaml
+	wait_for_terminating_pods
 }
 
 @test "[Monitor mode end-to-end tests] Launch a privileged pod should fail" {
